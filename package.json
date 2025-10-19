@@ -1,5 +1,5 @@
 {
-  "name": "codeguardian",
+  "name": "rune",
   "version": "1.0.0",
   "description": "AI-powered code security scanner with Google Gemini",
   "scripts": {
@@ -7,7 +7,12 @@
     "install-all": "cd backend && npm install && cd ../frontend && npm install",
     "dev": "echo 'Start backend: cd backend && npm run dev' && echo 'Start frontend: cd frontend && npm run dev'"
   },
-  "keywords": ["security", "ai", "gemini", "code-analysis"],
+  "keywords": [
+    "security",
+    "ai",
+    "gemini",
+    "code-analysis"
+  ],
   "author": "",
   "license": "MIT"
 }

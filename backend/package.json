@@ -1,5 +1,5 @@
 {
-  "name": "codeguardian-backend",
+  "name": "rune-backend",
   "version": "1.0.0",
   "description": "AI-powered code security scanner backend",
   "main": "src/index.js",

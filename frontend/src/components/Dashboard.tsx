@@ -1,20 +1,53 @@
-import React, { useState } from 'react';
-import { ScanResult, Vulnerability } from '../types';
-import { getSeverityColor, getSeverityBadgeColor } from '../utils/severityConfig';
-import CodeViewer from './CodeViewer';
-import ChatBot from './ChatBot';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ScanResult, Vulnerability } from "../types";
+import {
+  getSeverityColor,
+  getSeverityBadgeColor,
+} from "../utils/severityConfig";
+import CodeViewer from "./CodeViewer";
+import ChatBot from "./ChatBot";
 
-interface DashboardProps {
-  result: ScanResult;
-  code: string;
-  onNewScan: () => void;
-}
-
-const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
+const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+  const [scanResult, setScanResult] = useState<ScanResult | null>(null);
+  const [scannedCode, setScannedCode] = useState<string>("");
   const [selectedVuln, setSelectedVuln] = useState<Vulnerability | null>(null);
   const [showChat, setShowChat] = useState(false);
 
-  const { summary, vulnerabilities } = result;
+  useEffect(() => {
+    // Retrieve scan result and code from sessionStorage
+    const storedResult = sessionStorage.getItem("scanResult");
+    const storedCode = sessionStorage.getItem("scannedCode");
+
+    if (storedResult && storedCode) {
+      setScanResult(JSON.parse(storedResult));
+      setScannedCode(storedCode);
+    } else {
+      // If no scan data is available, redirect to upload page
+      navigate("/upload");
+    }
+  }, [navigate]);
+
+  const handleNewScan = () => {
+    // Clear stored data and navigate to upload
+    sessionStorage.removeItem("scanResult");
+    sessionStorage.removeItem("scannedCode");
+    navigate("/upload");
+  };
+
+  if (!scanResult) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-4 border-indigo-600 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading scan results...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const { summary, vulnerabilities } = scanResult;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -23,15 +56,13 @@ const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
         <div className="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
-                🛡️ CodeGuardian
-              </h1>
+              <h1 className="text-2xl font-bold text-gray-900">🛡️ Rune</h1>
               <p className="text-sm text-gray-600 mt-1">
-                Scan: {result.filename}
+                Scan: {scanResult.filename}
               </p>
             </div>
             <button
-              onClick={onNewScan}
+              onClick={handleNewScan}
               className="bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
             >
               New Scan
@@ -44,27 +75,39 @@ const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
         {/* Summary Stats */}
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-8">
           <div className="bg-white p-4 rounded-lg shadow">
-            <div className="text-2xl font-bold text-gray-900">{summary.total}</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {summary.total}
+            </div>
             <div className="text-sm text-gray-600">Total Issues</div>
           </div>
           <div className="bg-red-50 p-4 rounded-lg shadow border-l-4 border-red-600">
-            <div className="text-2xl font-bold text-red-900">{summary.critical}</div>
+            <div className="text-2xl font-bold text-red-900">
+              {summary.critical}
+            </div>
             <div className="text-sm text-red-700">Critical</div>
           </div>
           <div className="bg-orange-50 p-4 rounded-lg shadow border-l-4 border-orange-600">
-            <div className="text-2xl font-bold text-orange-900">{summary.high}</div>
+            <div className="text-2xl font-bold text-orange-900">
+              {summary.high}
+            </div>
             <div className="text-sm text-orange-700">High</div>
           </div>
           <div className="bg-yellow-50 p-4 rounded-lg shadow border-l-4 border-yellow-600">
-            <div className="text-2xl font-bold text-yellow-900">{summary.medium}</div>
+            <div className="text-2xl font-bold text-yellow-900">
+              {summary.medium}
+            </div>
             <div className="text-sm text-yellow-700">Medium</div>
           </div>
           <div className="bg-blue-50 p-4 rounded-lg shadow border-l-4 border-blue-600">
-            <div className="text-2xl font-bold text-blue-900">{summary.low}</div>
+            <div className="text-2xl font-bold text-blue-900">
+              {summary.low}
+            </div>
             <div className="text-sm text-blue-700">Low</div>
           </div>
           <div className="bg-gray-50 p-4 rounded-lg shadow border-l-4 border-gray-600">
-            <div className="text-2xl font-bold text-gray-900">{summary.info}</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {summary.info}
+            </div>
             <div className="text-sm text-gray-700">Info</div>
           </div>
         </div>
@@ -80,7 +123,7 @@ const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
                 onClick={() => setShowChat(!showChat)}
                 className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-purple-700 transition-colors"
               >
-                {showChat ? 'Hide Chat' : 'Ask AI'}
+                {showChat ? "Hide Chat" : "Ask AI"}
               </button>
             </div>
 
@@ -99,12 +142,18 @@ const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
                 {vulnerabilities.map((vuln, index) => (
                   <div
                     key={index}
-                    className={`${getSeverityColor(vuln.severity)} border-l-4 rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
+                    className={`${getSeverityColor(
+                      vuln.severity
+                    )} border-l-4 rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow`}
                     onClick={() => setSelectedVuln(vuln)}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <span className={`${getSeverityBadgeColor(vuln.severity)} px-3 py-1 rounded-full text-xs font-bold uppercase`}>
+                        <span
+                          className={`${getSeverityBadgeColor(
+                            vuln.severity
+                          )} px-3 py-1 rounded-full text-xs font-bold uppercase`}
+                        >
                           {vuln.severity}
                         </span>
                         <span className="font-semibold text-sm">
@@ -144,14 +193,15 @@ const Dashboard: React.FC<DashboardProps> = ({ result, code, onNewScan }) => {
               Code Review
             </h2>
             <CodeViewer
-              code={code}
+              code={scannedCode}
               highlightLine={selectedVuln?.line_number || null}
-              filename={result.filename}
+              filename={scanResult.filename}
             />
             {selectedVuln && selectedVuln.line_number && (
               <div className="mt-4 bg-indigo-50 border border-indigo-200 rounded-lg p-4">
                 <p className="text-sm text-indigo-900">
-                  <strong>Selected Issue:</strong> {selectedVuln.issue_type} at line {selectedVuln.line_number}
+                  <strong>Selected Issue:</strong> {selectedVuln.issue_type} at
+                  line {selectedVuln.line_number}
                 </p>
               </div>
             )}
