@@ -1,0 +1,4 @@
+{
+  "code": "const query = \"SELECT * FROM users WHERE id = '\" + userId + \"'\";",
+  "filename": "test.js"
+}
