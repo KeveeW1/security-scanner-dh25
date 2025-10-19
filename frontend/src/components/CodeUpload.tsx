@@ -75,13 +75,13 @@ const CodeUpload: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-black">
       <div className="max-w-4xl mx-auto px-6 py-16">
         {/* Header */}
         <div className="mb-8">
           <button
             onClick={() => navigate("/")}
-            className="inline-flex items-center text-sm text-slate-600 hover:text-slate-900 transition-colors mb-6"
+            className="inline-flex items-center text-sm text-gray-400 hover:text-white transition-colors mb-6"
           >
             <svg
               className="w-4 h-4 mr-2"
@@ -99,27 +99,27 @@ const CodeUpload: React.FC = () => {
             Back to Home
           </button>
 
-          <h1 className="text-3xl font-semibold text-slate-900 mb-2">
+          <h1 className="text-3xl font-semibold text-white mb-2">
             Code Security Analysis
           </h1>
-          <p className="text-slate-600">
+          <p className="text-gray-300">
             Upload your code for comprehensive security vulnerability detection
           </p>
         </div>
 
         {/* Main Upload Card */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-slate-900 rounded-xl shadow-sm border border-slate-700 overflow-hidden">
           <div className="p-8">
             {/* File Upload Section */}
             <div className="mb-8">
-              <label className="block text-sm font-medium text-slate-700 mb-3">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Upload File
               </label>
               <div
                 className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
                   dragActive
-                    ? "border-blue-400 bg-blue-50"
-                    : "border-slate-300 hover:border-slate-400"
+                    ? "border-blue-400 bg-blue-900/20"
+                    : "border-gray-600 hover:border-gray-500"
                 }`}
                 onDragEnter={handleDrag}
                 onDragLeave={handleDrag}
@@ -127,9 +127,9 @@ const CodeUpload: React.FC = () => {
                 onDrop={handleDrop}
               >
                 <div className="space-y-4">
-                  <div className="mx-auto w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center">
+                  <div className="mx-auto w-12 h-12 bg-gray-700 rounded-lg flex items-center justify-center">
                     <svg
-                      className="w-6 h-6 text-slate-400"
+                      className="w-6 h-6 text-gray-400"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -143,10 +143,10 @@ const CodeUpload: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">
+                    <p className="text-sm text-gray-300 mb-1">
                       Drag and drop your code file here, or
                     </p>
-                    <label className="inline-flex items-center px-4 py-2 bg-slate-900 text-white text-sm font-medium rounded-lg hover:bg-slate-800 transition-colors cursor-pointer">
+                    <label className="inline-flex items-center px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-lg hover:bg-red-600 transition-colors cursor-pointer">
                       <svg
                         className="w-4 h-4 mr-2"
                         fill="none"
@@ -169,7 +169,7 @@ const CodeUpload: React.FC = () => {
                       />
                     </label>
                   </div>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-gray-400">
                     Supports JavaScript, TypeScript, Python, Java, PHP, Ruby,
                     Go, C++, C#, HTML, CSS
                   </p>
@@ -180,10 +180,10 @@ const CodeUpload: React.FC = () => {
             {/* Divider */}
             <div className="relative mb-8">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-slate-200" />
+                <div className="w-full border-t border-gray-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-slate-500 font-medium">
+                <span className="px-4 bg-slate-900 text-gray-400 font-medium">
                   OR
                 </span>
               </div>
@@ -192,7 +192,7 @@ const CodeUpload: React.FC = () => {
             {/* Code Input Section */}
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-3">
+                <label className="block text-sm font-medium text-gray-300 mb-3">
                   Paste Code Directly
                 </label>
                 <textarea
@@ -200,14 +200,14 @@ const CodeUpload: React.FC = () => {
                   onChange={(e) => setCode(e.target.value)}
                   placeholder="// Paste your code here for analysis..."
                   rows={12}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm bg-slate-50 resize-none"
+                  className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 font-mono text-sm bg-gray-800 text-gray-100 resize-none"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-3">
+                <label className="block text-sm font-medium text-gray-300 mb-3">
                   Filename
-                  <span className="text-slate-500 font-normal ml-1">
+                  <span className="text-gray-400 font-normal ml-1">
                     (optional)
                   </span>
                 </label>
@@ -216,14 +216,14 @@ const CodeUpload: React.FC = () => {
                   value={filename}
                   onChange={(e) => setFilename(e.target.value)}
                   placeholder="e.g., auth.js, api.py, index.html"
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+                  className="w-full px-4 py-3 border border-gray-600 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 text-sm bg-gray-800 text-gray-100 placeholder-gray-400"
                 />
               </div>
             </div>
 
             {/* Error Message */}
             {error && (
-              <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <div className="mt-6 p-4 bg-red-900/20 border border-red-500 rounded-lg">
                 <div className="flex">
                   <svg
                     className="w-5 h-5 text-red-400 mr-3 mt-0.5"
@@ -239,21 +239,21 @@ const CodeUpload: React.FC = () => {
                     />
                   </svg>
                   <div>
-                    <h3 className="text-sm font-medium text-red-800">
+                    <h3 className="text-sm font-medium text-red-300">
                       Analysis Failed
                     </h3>
-                    <p className="text-sm text-red-700 mt-1">{error}</p>
+                    <p className="text-sm text-red-200 mt-1">{error}</p>
                   </div>
                 </div>
               </div>
             )}
 
             {/* Submit Button */}
-            <div className="mt-8 pt-6 border-t border-slate-200">
+            <div className="mt-8 pt-6 border-t border-gray-600">
               <button
                 onClick={handleSubmit}
                 disabled={isLoading || !code.trim()}
-                className="w-full bg-slate-900 text-white py-3 px-6 rounded-lg font-medium hover:bg-slate-800 disabled:bg-slate-400 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
+                className="w-full bg-red-500 text-white py-3 px-6 rounded-lg font-medium hover:bg-red-600 disabled:bg-gray-600 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
               >
                 {isLoading ? (
                   <>
@@ -305,9 +305,9 @@ const CodeUpload: React.FC = () => {
         {/* Security Features */}
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
               <svg
-                className="w-6 h-6 text-blue-600"
+                className="w-6 h-6 text-blue-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -320,18 +320,16 @@ const CodeUpload: React.FC = () => {
                 />
               </svg>
             </div>
-            <h3 className="font-medium text-slate-900 mb-1">
-              Enterprise Security
-            </h3>
-            <p className="text-sm text-slate-600">
+            <h3 className="font-medium text-white mb-1">Enterprise Security</h3>
+            <p className="text-sm text-gray-300">
               OWASP Top 10 compliance and industry standards
             </p>
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
               <svg
-                className="w-6 h-6 text-green-600"
+                className="w-6 h-6 text-green-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -344,18 +342,16 @@ const CodeUpload: React.FC = () => {
                 />
               </svg>
             </div>
-            <h3 className="font-medium text-slate-900 mb-1">
-              AI-Powered Analysis
-            </h3>
-            <p className="text-sm text-slate-600">
+            <h3 className="font-medium text-white mb-1">AI-Powered Analysis</h3>
+            <p className="text-sm text-gray-300">
               Advanced machine learning for vulnerability detection
             </p>
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+            <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mx-auto mb-3">
               <svg
-                className="w-6 h-6 text-purple-600"
+                className="w-6 h-6 text-purple-400"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -368,8 +364,8 @@ const CodeUpload: React.FC = () => {
                 />
               </svg>
             </div>
-            <h3 className="font-medium text-slate-900 mb-1">Instant Results</h3>
-            <p className="text-sm text-slate-600">
+            <h3 className="font-medium text-white mb-1">Instant Results</h3>
+            <p className="text-sm text-gray-300">
               Get detailed reports in seconds, not hours
             </p>
           </div>
