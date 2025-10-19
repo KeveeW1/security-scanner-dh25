@@ -1,59 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>User Profile - XSS Vulnerable</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>User Profile</h1>
 
-    <!-- VULNERABILITY: XSS - Direct rendering of user input -->
     <div id="profile">
-        <script>
-            // Getting username from URL parameter
-            const urlParams = new URLSearchParams(window.location.search);
-            const username = urlParams.get('username');
+      <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get("username");
 
-            // VULNERABILITY: innerHTML with unsanitized user input
-            document.getElementById('profile').innerHTML = '<h2>Welcome, ' + username + '</h2>';
-        </script>
+        document.getElementById("profile").innerHTML =
+          "<h2>Welcome, " + username + "</h2>";
+      </script>
     </div>
 
-    <!-- VULNERABILITY: Reflected XSS -->
     <form action="/search" method="get">
-        <input type="text" name="query" placeholder="Search...">
-        <button type="submit">Search</button>
+      <input type="text" name="query" placeholder="Search..." />
+      <button type="submit">Search</button>
     </form>
 
     <div id="search-results">
-        <script>
-            const query = urlParams.get('query');
-            if (query) {
-                // VULNERABILITY: Direct insertion of search query without sanitization
-                document.getElementById('search-results').innerHTML =
-                    '<p>Results for: ' + query + '</p>';
-            }
-        </script>
+      <script>
+        const query = urlParams.get("query");
+        if (query) {
+          document.getElementById("search-results").innerHTML =
+            "<p>Results for: " + query + "</p>";
+        }
+      </script>
     </div>
 
-    <!-- VULNERABILITY: Inline event handlers with user data -->
     <div id="comments">
-        <script>
-            // VULNERABILITY: eval() with user input
-            const userScript = urlParams.get('script');
-            if (userScript) {
-                eval(userScript);  // Extremely dangerous!
-            }
-        </script>
+      <script>
+        const userScript = urlParams.get("script");
+        if (userScript) {
+          eval(userScript);
+        }
+      </script>
     </div>
 
-    <!-- VULNERABILITY: localStorage storing sensitive data -->
     <script>
-        const apiKey = 'sk-secret-key-12345';
-        localStorage.setItem('apiKey', apiKey);
+      const apiKey = "sk-secret-key-12345";
+      localStorage.setItem("apiKey", apiKey);
 
-        // VULNERABILITY: Exposing sensitive data in console
-        console.log('User API Key:', apiKey);
+      console.log("User API Key:", apiKey);
     </script>
-</body>
+  </body>
 </html>

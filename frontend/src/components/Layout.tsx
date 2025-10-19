@@ -18,9 +18,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Logo */}
             <div className="flex items-center">
               <Link to="/" className="flex-shrink-0 flex items-center">
-                <div className="w-7 h-7 bg-red-500 rounded-lg flex items-center justify-center mr-2">
-                  <span className="text-white font-bold text-sm">Y</span>
-                </div>
+                <img
+                  src="/images/tsconfig.node.png"
+                  alt="RUNE Logo"
+                  className="w-7 h-7 mr-2"
+                />
                 <span className="text-white text-lg font-semibold">RUNE</span>
               </Link>
             </div>
@@ -178,9 +180,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center mb-4">
-                <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center mr-3">
-                  <span className="text-white font-bold text-lg">Y</span>
-                </div>
+                <img
+                  src="/images/tsconfig.node.png"
+                  alt="RUNE Logo"
+                  className="w-8 h-8 mr-3"
+                />
                 <span className="text-white text-xl font-semibold">RUNE</span>
               </div>
               <p className="text-gray-400">Powered by Google Gemini AI</p>

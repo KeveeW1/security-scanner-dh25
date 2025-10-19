@@ -24,7 +24,6 @@ const LandingPage: React.FC = () => {
     setIsLoaded(true);
   }, []);
 
-  // AI vulnerability categories represented by each column
   const vulnerabilityCategories = [
     {
       name: "Prompt Injection",
@@ -374,7 +373,6 @@ const LandingPage: React.FC = () => {
                       fromNumber={0}
                       thousandSeparator=","
                     />
-                    <span className="text-red-500">1,000</span>
                   </div>
                   <div className="absolute -inset-4 bg-red-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
@@ -385,8 +383,7 @@ const LandingPage: React.FC = () => {
               <div className="text-center group">
                 <div className="relative">
                   <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform duration-300">
-                    <SlidingNumber number={99} fromNumber={0} />
-                    <span className="text-red-500">99</span>%
+                    <SlidingNumber number={99} fromNumber={0} />%
                   </div>
                   <div className="absolute -inset-4 bg-orange-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
@@ -398,7 +395,6 @@ const LandingPage: React.FC = () => {
                 <div className="relative">
                   <div className="text-4xl font-bold gradient-text mb-2 group-hover:scale-110 transition-transform duration-300">
                     <SlidingNumber number={24} fromNumber={0} />
-                    <span className="text-red-500">24</span>
                   </div>
                   <div className="absolute -inset-4 bg-yellow-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
