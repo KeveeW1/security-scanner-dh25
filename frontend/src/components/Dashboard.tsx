@@ -7,6 +7,7 @@ import {
 } from "../utils/severityConfig";
 import CodeViewer from "./CodeViewer";
 import ChatBot from "./ChatBot";
+import Navigation from "./Navigation";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -51,8 +52,9 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <Navigation />
       {/* Enhanced Header */}
-      <div className="bg-gradient-to-r from-slate-900/95 to-gray-900/95 backdrop-blur-md shadow-xl border-b border-gray-700/50">
+      <div className="bg-gradient-to-r from-slate-900/95 to-gray-900/95 backdrop-blur-md shadow-xl border-b border-gray-700/50 mt-16">
         <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center header-content">
             <div className="flex items-center space-x-4">

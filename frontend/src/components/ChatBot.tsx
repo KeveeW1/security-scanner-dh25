@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { chatWithAI } from "../services/api";
 import { Vulnerability, ChatMessage } from "../types";
 
@@ -121,9 +123,17 @@ const ChatBot: React.FC<ChatBotProps> = ({
                     : "bg-gray-700/50 text-gray-200 border border-gray-600/30"
                 }`}
               >
-                <p className="text-sm whitespace-pre-wrap leading-relaxed">
-                  {msg.content}
-                </p>
+                {msg.role === "assistant" ? (
+                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {msg.content}
+                    </ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="text-sm whitespace-pre-wrap leading-relaxed">
+                    {msg.content}
+                  </p>
+                )}
               </div>
             </div>
           ))}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { analyzeCode } from "../services/api";
+import Navigation from "./Navigation";
 
 const CodeUpload: React.FC = () => {
   const navigate = useNavigate();
@@ -76,7 +77,8 @@ const CodeUpload: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      <div className="max-w-4xl mx-auto px-6 py-16">
+      <Navigation />
+      <div className="max-w-4xl mx-auto px-6 py-16 pt-24">
         {/* Header */}
         <div className="mb-8">
           <button

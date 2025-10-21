@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 class GeminiService {
   constructor() {
@@ -9,14 +9,16 @@ class GeminiService {
   _initialize() {
     if (!this.genAI) {
       if (!process.env.GEMINI_API_KEY) {
-        throw new Error('GEMINI_API_KEY is not set in environment variables');
+        throw new Error("GEMINI_API_KEY is not set in environment variables");
       }
       this.genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-      this.model = this.genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+      this.model = this.genAI.getGenerativeModel({
+        model: "gemini-2.0-flash-exp",
+      });
     }
   }
 
-  async analyzeCode(code, filename = 'code.js') {
+  async analyzeCode(code, filename = "code.js") {
     this._initialize();
     const prompt = `You are a security expert analyzing code for vulnerabilities. Analyze the following code for:
 1. Security vulnerabilities (SQL injection, XSS, CSRF, insecure authentication, hardcoded secrets, etc.)
@@ -50,10 +52,12 @@ If no issues are found, return an empty array [].`;
 
       // Clean up the response - remove markdown code blocks if present
       let cleanedText = text.trim();
-      if (cleanedText.startsWith('```json')) {
-        cleanedText = cleanedText.replace(/```json\n?/g, '').replace(/```\n?/g, '');
-      } else if (cleanedText.startsWith('```')) {
-        cleanedText = cleanedText.replace(/```\n?/g, '');
+      if (cleanedText.startsWith("```json")) {
+        cleanedText = cleanedText
+          .replace(/```json\n?/g, "")
+          .replace(/```\n?/g, "");
+      } else if (cleanedText.startsWith("```")) {
+        cleanedText = cleanedText.replace(/```\n?/g, "");
       }
 
       // Parse JSON
@@ -61,12 +65,12 @@ If no issues are found, return an empty array [].`;
 
       // Validate structure
       if (!Array.isArray(vulnerabilities)) {
-        throw new Error('Invalid response format: expected array');
+        throw new Error("Invalid response format: expected array");
       }
 
       return vulnerabilities;
     } catch (error) {
-      console.error('Error analyzing code with Gemini:', error);
+      console.error("Error analyzing code with Gemini:", error);
       throw new Error(`Failed to analyze code: ${error.message}`);
     }
   }
@@ -80,14 +84,14 @@ ${JSON.stringify(context, null, 2)}
 
 User question: ${question}
 
-Provide a clear, helpful answer focused on security best practices and how to fix the issue.`;
+Provide a clear, helpful answer focused on security best practices and how to fix the issue. Format your response using markdown with proper headings, bullet points, code blocks, and emphasis where appropriate. Use **bold** for important terms, *italics* for emphasis, and \`code\` for code snippets.`;
 
     try {
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
       return response.text();
     } catch (error) {
-      console.error('Error in chat:', error);
+      console.error("Error in chat:", error);
       throw new Error(`Failed to get response: ${error.message}`);
     }
   }
