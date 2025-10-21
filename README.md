@@ -1,4 +1,4 @@
-# CodeGuardian
+# RUNE
 
 An AI-powered code security scanner that uses Google Gemini API to detect vulnerabilities, security flaws, and code quality issues in your codebase.
 
